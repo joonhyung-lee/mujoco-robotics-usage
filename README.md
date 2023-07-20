@@ -30,10 +30,10 @@ Below is a list of files and their descriptions:
 * Kinematic Solver
     1. Solve inverse kinematics in various method with 
         * [General]
-            <p align="center">
-            <img src="./readme/gifs/ik_general.gif" width="100%" />
+            <p float="left">
+            <img src="./readme/gifs/ik_general.gif" width="49%" />
+            <img src="./readme/gifs/wholebody_ik.gif" width="49%" />>
             </p>
-
         * [Augmented],
         * [Nullspace projection]
         * [Repelling]
