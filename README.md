@@ -30,7 +30,9 @@ Below is a list of files and their descriptions:
 * Kinematic Solver
     1. Solve inverse kinematics in various method with 
         * [General]
-           ![ik_general](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/3e4deab9-e112-453d-bb16-e3477813e840)
+            <p align="center">
+            <img src="./readme/gifs/ik_general.gif" width="100%" />
+            </p>
 
         * [Augmented],
         * [Nullspace projection]
@@ -41,10 +43,10 @@ Below is a list of files and their descriptions:
 * Trajectory Planning method
     1. [Task space planning]
         * [Quintic]
-          ![ik_traj](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/7e8306b3-c8d3-496d-91b7-29479496535d)
-
-          ![minimum_jerk](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/b0cafa74-e703-4003-a7bb-d05e28fb1d2c)
-
+        <p float="left">
+        <img src="./readme/gifs/ik_traj.gif" width="49%" />
+        <img src="./readme/gifs/minimum_jerk.gif" width="49%" />
+        </p>
         * [Minimum Jerk]
         * [Linear movement]
     2. [Velocity profile method]: 
@@ -53,12 +55,15 @@ Below is a list of files and their descriptions:
     
 * Demos
   1. [Pick-n-Place]
-     ![pick-n-place-multiple-objects](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/c851c6dc-34cb-4031-9bba-947336d3b81e)
-
+        <p align="center">
+            <img src="./readme/gifs/pick-n-place-multiple-objects.gif" width="100%" alt="Pick-n-place multiple objects in succession on table-top scene.">
+        </p>
     
 * Mobile Planning method
     1. [Mobile Velocity Control]
-        * ![husky_ur](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/94036fc6-2e77-4ea0-a970-7c49e4d45878)
+        <p align="center">
+            <img src="./readme/gifs/husky_ur.gif" width="100%" alt="Husky with UR just moving forward.">
+        </p>
     2. [Global planner]
         * [A*]
         * [RRT]
@@ -69,8 +74,12 @@ Below is a list of files and their descriptions:
         
 * Point-cloud
     1. [Point-cloud Projection]
-       ![pcd_projection](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/9be34382-3e8c-460b-84ea-bf403d3277e2)
-       ![Screenshot from 2023-06-29 10-48-22](https://github.com/joonhyung-lee/mujoco-robotics-usage/assets/68883036/a2577c7e-8d3c-4d6a-8edc-157c2d7107ec)
+        <p align="center">
+            <img src="./readme/image/project_pcd.png" width="100%" alt="Project point-cloud onto table from ego-centric view.">
+        </p>
+        <p align="center">
+            <img src="./readme/gifs/pcd_projection.gif" width="100%" alt="Project point-cloud onto table from ego-centric view.">
+        </p>
 
     2. [RANSAC]
     3. [Iterative Closet Point]
@@ -80,5 +89,3 @@ Below is a list of files and their descriptions:
 * Segmentations
     * [Unseen Object Clustering (UCN)](https://github.com/NVlabs/UnseenObjectClustering)
     * [Segment-Anything (SAM)](https://github.com/facebookresearch/segment-anything)
-
-
