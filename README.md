@@ -3,9 +3,13 @@ This repo provides minimal hands-on code for MuJoCo Robotics Algorithms.
 
 (This repository only covers the MuJoCo simulation. Realworld is not included)
 
-MuJoCo related code is employed from following DeepMind's repos: 
+MuJoCo related code is employed from following repos: 
 
 * [MuJoCo] https://github.com/deepmind/mujoco
+* [YAMT] https://github.com/sjchoi86/yet-another-mujoco-tutorial-v3
+
+Some of the robot models referenced mujoco_menagerie
+* [mujoco_menagerie] https://github.com/deepmind/mujoco_menagerie
 
 ## Prerequisites
 
