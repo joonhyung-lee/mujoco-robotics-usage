@@ -93,3 +93,10 @@ Below is a list of files and their descriptions:
 * Segmentations
     * [Unseen Object Clustering (UCN)](https://github.com/NVlabs/UnseenObjectClustering)
     * [Segment-Anything (SAM)](https://github.com/facebookresearch/segment-anything)
+
+* Miscellaneous
+    * [Multi-vivwer] Add Multi-Viewer toy examples: Get images from camera defined in an XML(MJCF) files.
+        <p float="left">
+        <img src="./readme/gifs/multi-viewer-1.gif" width="49%" />
+        <img src="./readme/gifs/multi-viewer-2.gif" width="49%" />>
+        </p>
