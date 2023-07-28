@@ -6,4 +6,7 @@
   <!-- Floor and Sky -->
   <include file="../object/floor_sky.xml" />
 
+  <!-- Cylinder Object -->
+  <include file="../object/obj_cylinder.xml" />
+
 </mujoco>

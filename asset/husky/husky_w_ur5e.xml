@@ -122,32 +122,32 @@
       <geom pos="0.272 0 0.38993" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="user_rail"/>
       <geom pos="0.48 0 0.23593" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper"/>
       <geom pos="-0.48 0 0.23593" quat="1.32679e-06 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper"/>
-      <body name="front_left_wheel_link" pos="0.256 0.2854 0.17775" gravcomp="0">
+      <body name="front_left_wheel_link" pos="0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
         <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
         <joint name="front_left_wheel" pos="0 0 0" axis="0 1 0"/>
         <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
         <!-- <geom size="0.17775 0.05715" quat="0.707107 0.707106 0 0" type="cylinder" rgba="0.3 0.3 0.3 1"/> -->
       </body>
-      <body name="front_right_wheel_link" pos="0.256 -0.2854 0.17775" gravcomp="0">
+      <body name="front_right_wheel_link" pos="0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
         <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
         <joint name="front_right_wheel" pos="0 0 0" axis="0 1 0"/>
         <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
         <!-- <geom size="0.17775 0.05715" quat="0.707107 0.707106 0 0" type="cylinder" rgba="0.3 0.3 0.3 1"/> -->
       </body>
-      <body name="rear_left_wheel_link" pos="-0.256 0.2854 0.17775" gravcomp="0">
+      <body name="rear_left_wheel_link" pos="-0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
         <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
         <joint name="rear_left_wheel" pos="0 0 0" axis="0 1 0"/>
         <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
         <!-- <geom size="0.17775 0.05715" quat="0.707107 0.707106 0 0" type="cylinder" rgba="0.3 0.3 0.3 1"/> -->
       </body>
-      <body name="rear_right_wheel_link" pos="-0.256 -0.2854 0.17775" gravcomp="0">
+      <body name="rear_right_wheel_link" pos="-0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
         <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
         <joint name="rear_right_wheel" pos="0 0 0" axis="0 1 0"/>
         <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
         <!-- <geom size="0.17775 0.05715" quat="0.707107 0.707106 0 0" type="cylinder" rgba="0.3 0.3 0.3 1"/> -->
       </body>  
 
-      <body name="base_ur5e" pos="-0.17 0 0.38993" quat="0 0 0 1">
+      <body name="base_ur5e" pos="0.17 0 0.38993" quat="1 0 0 0">
         <inertial mass="4.0" pos="0 0 0" diaginertia="0.00443333156 0.00443333156 0.0072" />
         <geom mesh="base_0" material="black" class="visual" />
         <geom mesh="base_1" material="jointgray" class="visual" />
@@ -356,13 +356,13 @@
      -->
 
     <!-- Velocity -->
-    <velocity name="front_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="1"
+    <velocity name="front_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
       kv="10" joint="front_left_wheel" />
-    <velocity name="front_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="1"
+    <velocity name="front_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
       kv="10" joint="front_right_wheel" />
-    <velocity name="rear_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="1"
+    <velocity name="rear_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
       kv="10" joint="rear_left_wheel" />
-    <velocity name="rear_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="1"
+    <velocity name="rear_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
       kv="10" joint="rear_right_wheel" />
 
     <!-- UR5e Position Actuator -->
