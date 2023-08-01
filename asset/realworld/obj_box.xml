@@ -1,0 +1,39 @@
+<mujocoinclude>
+
+    <worldbody>
+
+        <!-- Cylinder objects -->
+        <body name="obj_box_01" pos="0.0 0.1 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+        <body name="obj_box_02" pos="0.0 0.2 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+        <body name="obj_box_03" pos="0.0 0.3 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.16  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+        <body name="obj_box_04" pos="0.0 0.4 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+        <body name="obj_box_05" pos="0.0 0.5 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+        <body name="obj_box_06" pos="0.0 0.6 0.0">
+            <joint type="free" />
+            <geom fromto="0.0 0.0 0.14  0.0 0.0 0.0" size="0.035 0.035"
+                density="500" friction="1 0.005 0.0001" type="box" rgba="0.5 0.56 0.43 1" />
+        </body>
+
+    </worldbody>
+
+</mujocoinclude>
