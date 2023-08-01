@@ -1,0 +1,85 @@
+<mujoco model="cups_1">
+    <default>
+        <default class="visual_cups">
+          <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+        </default>
+        <default class="collision_cups">
+          <geom group="3" type="mesh"/>
+        </default>
+      </default>
+    <asset>
+      <texture type="2d" name="cups_1" file="cups_1.png"/>
+      <material name="material_0" texture="cups_1" specular="0.5" shininess="0.5"/>
+      <mesh file="cups_1.obj"/>
+      <mesh file="cups_1_collision_0.obj"/>
+      <mesh file="cups_1_collision_1.obj"/>
+      <mesh file="cups_1_collision_2.obj"/>
+      <mesh file="cups_1_collision_3.obj"/>
+      <mesh file="cups_1_collision_4.obj"/>
+      <mesh file="cups_1_collision_5.obj"/>
+      <mesh file="cups_1_collision_6.obj"/>
+      <mesh file="cups_1_collision_7.obj"/>
+      <mesh file="cups_1_collision_8.obj"/>
+      <mesh file="cups_1_collision_9.obj"/>
+      <mesh file="cups_1_collision_10.obj"/>
+      <mesh file="cups_1_collision_11.obj"/>
+      <mesh file="cups_1_collision_12.obj"/>
+      <mesh file="cups_1_collision_13.obj"/>
+      <mesh file="cups_1_collision_14.obj"/>
+      <mesh file="cups_1_collision_15.obj"/>
+      <mesh file="cups_1_collision_16.obj"/>
+      <mesh file="cups_1_collision_17.obj"/>
+      <mesh file="cups_1_collision_18.obj"/>
+      <mesh file="cups_1_collision_19.obj"/>
+      <mesh file="cups_1_collision_20.obj"/>
+      <mesh file="cups_1_collision_21.obj"/>
+      <mesh file="cups_1_collision_22.obj"/>
+      <mesh file="cups_1_collision_23.obj"/>
+      <mesh file="cups_1_collision_24.obj"/>
+      <mesh file="cups_1_collision_25.obj"/>
+      <mesh file="cups_1_collision_26.obj"/>
+      <mesh file="cups_1_collision_27.obj"/>
+      <mesh file="cups_1_collision_28.obj"/>
+      <mesh file="cups_1_collision_29.obj"/>
+      <mesh file="cups_1_collision_30.obj"/>
+      <mesh file="cups_1_collision_31.obj"/>
+    </asset>
+    <worldbody>
+    <body name="obj_cups_1" pos="0.0 0.1 0.0">
+        <joint type="free" />
+        <geom material="material_0" mesh="cups_1"  class="visual_cups"/>
+        <geom mesh="cups_1_collision_0" class="collision_cups"/>
+        <geom mesh="cups_1_collision_1" class="collision_cups"/>
+        <geom mesh="cups_1_collision_2" class="collision_cups"/>
+        <geom mesh="cups_1_collision_3" class="collision_cups"/>
+        <geom mesh="cups_1_collision_4" class="collision_cups"/>
+        <geom mesh="cups_1_collision_5" class="collision_cups"/>
+        <geom mesh="cups_1_collision_6" class="collision_cups"/>
+        <geom mesh="cups_1_collision_7" class="collision_cups"/>
+        <geom mesh="cups_1_collision_8" class="collision_cups"/>
+        <geom mesh="cups_1_collision_9" class="collision_cups"/>
+        <geom mesh="cups_1_collision_10" class="collision_cups"/>
+        <geom mesh="cups_1_collision_11" class="collision_cups"/>
+        <geom mesh="cups_1_collision_12" class="collision_cups"/>
+        <geom mesh="cups_1_collision_13" class="collision_cups"/>
+        <geom mesh="cups_1_collision_14" class="collision_cups"/>
+        <geom mesh="cups_1_collision_15" class="collision_cups"/>
+        <geom mesh="cups_1_collision_16" class="collision_cups"/>
+        <geom mesh="cups_1_collision_17" class="collision_cups"/>
+        <geom mesh="cups_1_collision_18" class="collision_cups"/>
+        <geom mesh="cups_1_collision_19" class="collision_cups"/>
+        <geom mesh="cups_1_collision_20" class="collision_cups"/>
+        <geom mesh="cups_1_collision_21" class="collision_cups"/>
+        <geom mesh="cups_1_collision_22" class="collision_cups"/>
+        <geom mesh="cups_1_collision_23" class="collision_cups"/>
+        <geom mesh="cups_1_collision_24" class="collision_cups"/>
+        <geom mesh="cups_1_collision_25" class="collision_cups"/>
+        <geom mesh="cups_1_collision_26" class="collision_cups"/>
+        <geom mesh="cups_1_collision_27" class="collision_cups"/>
+        <geom mesh="cups_1_collision_28" class="collision_cups"/>
+        <geom mesh="cups_1_collision_29" class="collision_cups"/>
+        <geom mesh="cups_1_collision_30" class="collision_cups"/>
+        <geom mesh="cups_1_collision_31" class="collision_cups"/>
+      </body>
+    </worldbody>
+  </mujoco>

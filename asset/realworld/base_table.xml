@@ -1,0 +1,10 @@
+<mujocoinclude>
+
+    <worldbody>
+        <body name="base_table" pos="0 0 0.395" euler="0 0 0">
+            <geom name="base_table" size="0.38 0.36 0.395" pos="0 0 0.395" type="box" rgba="0.63 0.76 0.63 1.0"/>
+            <inertial pos="0 0 0" mass="1" diaginertia="0 0 0" />
+        </body>
+    </worldbody>
+
+</mujocoinclude>
