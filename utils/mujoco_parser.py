@@ -3,10 +3,11 @@ import os
 import cv2
 import mujoco_viewer
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 sys.path.append('../')
 from utils.util import (compute_view_params, get_rotation_matrix_from_two_points,
-                  meters2xyz, pr2t, r2w, rpy2r, trim_scale)
+                  meters2xyz, pr2t, r2w, rpy2r, trim_scale, sample_xyzs)
 
 import mujoco
 
@@ -102,8 +103,9 @@ class MuJoCoParserClass(object):
         self.n_site           = self.model.nsite
         self.site_names       = [mujoco.mj_id2name(self.model,mujoco.mjtObj.mjOBJ_SITE,x)
                                 for x in range(self.n_site)]
-        self.idxs_forward = [self.model.joint(joint_name).qposadr[0] for joint_name in self.rev_joint_names[:7]]
-        self.idxs_jacobian = [self.model.joint(joint_name).dofadr[0] for joint_name in self.rev_joint_names[:7]]
+
+        self.idxs_forward = [self.model.joint(joint_name).qposadr[0] for joint_name in self.rev_joint_names[:6]]
+        self.idxs_jacobian = [self.model.joint(joint_name).dofadr[0] for joint_name in self.rev_joint_names[:6]]
         list1, list2 = self.ctrl_joint_idxs, self.idxs_forward
         self.idxs_step = []
         for i in range(len(list2)):
@@ -388,7 +390,7 @@ class MuJoCoParserClass(object):
         J_full = np.array(np.vstack([J_p,J_R]))
         return J_p,J_R,J_full
 
-    def get_ik_ingredients(self,body_name,p_trgt=None,R_trgt=None,IK_P=True,IK_R=True):
+    def get_ik_ingredients(self,body_name,p_trgt=None,R_trgt=None,IK_P=True,IK_R=True, w_weight=1):
         """
             Get IK ingredients
         """
@@ -399,7 +401,7 @@ class MuJoCoParserClass(object):
             R_err = np.linalg.solve(R_curr,R_trgt)
             w_err = R_curr @ r2w(R_err)
             J     = J_full
-            err   = np.concatenate((p_err,w_err))
+            err   = np.concatenate((p_err,w_weight*w_err))
         elif (IK_P and not IK_R):
             p_err = (p_trgt-p_curr)
             J     = J_p
@@ -438,24 +440,24 @@ class MuJoCoParserClass(object):
         self.forward(q=q,joint_idxs=joint_idxs)
         return q, err
     
-    def solve_ik(self,body_name,p_trgt,R_trgt,IK_P,IK_R,q_init,rev_joint_idxs,
-                 RESET=False,DO_RENDER=False,render_every=1,th=1*np.pi/180.0,err_th=1e-6):
+    def solve_ik(self,body_name,p_trgt,R_trgt,IK_P,IK_R,q_init,idxs_forward, idxs_jacobian,
+                 RESET=False,DO_RENDER=False,render_every=1,th=1*np.pi/180.0,err_th=1e-6,w_weight=1.0, stepsize=1.0):
         """
             Solve IK
         """
         if RESET:
             self.reset()
-        q_backup = self.get_q(joint_idxs=rev_joint_idxs)
+        q_backup = self.get_q(joint_idxs=idxs_forward)
         q = q_init.copy()
-        self.forward(q=q,joint_idxs=rev_joint_idxs)
+        self.forward(q=q,joint_idxs=idxs_forward)
         tick = 0
         while True:
             tick = tick + 1
             J,err = self.get_ik_ingredients(
-                body_name=body_name,p_trgt=p_trgt,R_trgt=R_trgt,IK_P=IK_P,IK_R=IK_R)
-            dq = self.damped_ls(J,err,stepsize=1,eps=1e-1,th=th)
-            q = q + dq[rev_joint_idxs]
-            self.forward(q=q,joint_idxs=rev_joint_idxs)
+                body_name=body_name,p_trgt=p_trgt,R_trgt=R_trgt,IK_P=IK_P,IK_R=IK_R, w_weight=w_weight)
+            dq = self.damped_ls(J,err,stepsize=stepsize,eps=1e-1,th=th)
+            q = q + dq[idxs_jacobian]
+            self.forward(q=q,joint_idxs=idxs_forward)
             # Terminate condition
             err_norm = np.linalg.norm(err)
             if err_norm < err_th:
@@ -466,12 +468,62 @@ class MuJoCoParserClass(object):
                     p_tcp,R_tcp = self.get_pR_body(body_name=body_name)
                     self.plot_T(p=p_tcp,R=R_tcp,PLOT_AXIS=True,axis_len=0.1,axis_width=0.005)
                     self.plot_T(p=p_trgt,R=R_trgt,PLOT_AXIS=True,axis_len=0.2,axis_width=0.005)
-                    self.render()
+                    self.render(render_every=render_every)
         # Back to back-uped position
-        q_ik = self.get_q(joint_idxs=rev_joint_idxs)
-        self.forward(q=q_backup,joint_idxs=rev_joint_idxs)
+        q_ik = self.get_q(joint_idxs=idxs_forward)
+        self.forward(q=q_backup,joint_idxs=idxs_forward)
         return q_ik
 
+    def solve_ik_repel(self,body_name,p_trgt,R_trgt,IK_P,IK_R,q_init,idxs_forward, idxs_jacobian,
+                    RESET=False,DO_RENDER=False,render_every=1,th=1*np.pi/180.0,err_th=1e-6,w_weight=1.0, stepsize=1.0, eps=0.1,
+                    repulse = 30, VERBOSE=False):
+        """
+            Solve IK
+        """
+        if RESET:
+            self.reset()
+        q_backup = self.get_q(joint_idxs=idxs_forward)
+        q = q_init.copy()
+        self.forward(q=q,joint_idxs=idxs_forward)
+        tick = 0
+        while True:
+            tick = tick + 1
+            J,err = self.get_ik_ingredients(
+                body_name=body_name,p_trgt=p_trgt,R_trgt=R_trgt,IK_P=IK_P,IK_R=IK_R, w_weight=w_weight)
+            dq = self.damped_ls(J,err,stepsize=stepsize,eps=eps,th=th)
+            q = q + dq[idxs_jacobian]
+            self.forward(q=q,joint_idxs=idxs_forward)
+
+            p_contacts,f_contacts,geom1s,geom2s,body1s,body2s = self.get_contact_info(must_exclude_prefix='obj_')
+
+            body1s_ = [obj_ for obj_ in body1s if obj_ not in ["rg2_gripper_finger1_finger_tip_link","rg2_gripper_finger2_finger_tip_link"]]
+            body2s_ = [obj_ for obj_ in body2s if obj_ not in ["rg2_gripper_finger1_finger_tip_link","rg2_gripper_finger2_finger_tip_link"]]
+            
+            if len(body1s_) > 0:
+                if VERBOSE:
+                    print(body1s_, body2s_)
+                    print(f"Collision with {body1s_[0]} and {body2s_}")
+                # clipping the gradient
+                clipped_dq = np.clip(dq[idxs_jacobian], -0.1, 0.1)
+                q = q - clipped_dq * repulse
+            
+            # Terminate condition
+            err_norm = np.linalg.norm(err)
+            if err_norm < err_th:
+                break
+            # Render
+            if DO_RENDER:
+                if ((tick-1)%render_every) == 0:
+                    p_tcp,R_tcp = self.get_pR_body(body_name=body_name)
+                    self.plot_T(p=p_tcp,R=R_tcp,PLOT_AXIS=True,axis_len=0.1,axis_width=0.005)
+                    self.plot_T(p=p_trgt,R=R_trgt,PLOT_AXIS=True,axis_len=0.2,axis_width=0.005)
+                    self.render(render_every=render_every)
+        # Back to back-uped position
+        q_ik = self.get_q(joint_idxs=idxs_forward)
+        self.forward(q=q_backup,joint_idxs=idxs_forward)
+        
+        return q_ik
+    
     def plot_sphere(self,p,r,rgba=[1,1,1,1],label=''):
         """
             Add sphere
@@ -722,7 +774,7 @@ class MuJoCoParserClass(object):
             contact_body2 = self.body_names[self.model.geom_bodyid[contact.geom2]]
             # Append
             if must_include_prefix is not None:
-                if (contact_geom1[:len(must_include_prefix)] == must_include_prefix) or (contact_geom2[:len(must_include_prefix)] == must_include_prefix):
+                if (contact_body1[:len(must_include_prefix)] == must_include_prefix) or (contact_body2[:len(must_include_prefix)] == must_include_prefix):
                     p_contacts.append(p_contact)
                     f_contacts.append(f_contact)
                     geom1s.append(contact_geom1)
@@ -730,7 +782,7 @@ class MuJoCoParserClass(object):
                     body1s.append(contact_body1)
                     body2s.append(contact_body2)
             elif must_exclude_prefix is not None:
-                if (contact_geom1[:len(must_exclude_prefix)] != must_exclude_prefix) and (contact_geom2[:len(must_exclude_prefix)] != must_exclude_prefix):
+                if (contact_body1[:len(must_exclude_prefix)] != must_exclude_prefix) and (contact_body2[:len(must_exclude_prefix)] != must_exclude_prefix):
                     p_contacts.append(p_contact)
                     f_contacts.append(f_contact)
                     geom1s.append(contact_geom1)
@@ -882,6 +934,28 @@ class MuJoCoParserClass(object):
                                elevation=viewer_elevation,lookat=viewer_lookat)
         return rgb_img,depth_img,pcd,xyz_img
 
+    def place_objects(self, n_obj, obj_names, x_range=[0.75, 1.35], y_range=[-0.38,0.38],z_range=[0.81,0.81], min_dist=0.1, COLORS=False, VERBOSE=False):
+        xyzs = sample_xyzs(n_sample=n_obj,
+                    x_range=x_range,y_range=y_range,z_range=z_range,min_dist=min_dist)
+        if COLORS:
+            colors = np.array([plt.cm.gist_rainbow(x) for x in np.linspace(0,1,n_obj)])
+
+        for obj_idx, obj_name in enumerate(obj_names):
+            if obj_idx == (n_obj):
+                break
+            jntadr = self.model.body(obj_name).jntadr[0]
+            self.model.joint(jntadr).qpos0[:3] = xyzs[obj_idx, :]
+            geomadr = self.model.body(obj_name).geomadr[0]
+            if COLORS:
+                self.model.geom(geomadr).rgba = colors[obj_idx]
+        
+        if VERBOSE:
+            for obj_idx, obj_name in enumerate(obj_names):
+                if obj_idx == (n_obj):
+                    break
+                print(f"{obj_name}: {xyzs[obj_idx, :]}")
+
+
     def get_tick(self):
         """
             Get tick
@@ -938,7 +1012,7 @@ class MuJoCoParserClass(object):
         """
         return np.array([self.get_qpos_joint(joint_name) for joint_name in joint_names]).squeeze()
     
-    def get_qvel_joint(self,joint_names):
+    def get_qvel_joints(self,joint_names):
         """
             Get multiple joint velocities from 'joint_names'
         """
