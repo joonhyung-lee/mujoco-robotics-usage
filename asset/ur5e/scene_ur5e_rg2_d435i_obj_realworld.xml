@@ -1,0 +1,19 @@
+<mujoco model="ur5e scene">
+  
+  <!-- UR5e -->
+  <include file="./ur5e_rg2_d435i.xml" />
+
+
+  <!-- Object table -->
+  <include file="../realworld/object_table.xml" />
+
+  <!-- Base table -->
+  <include file="../realworld/base_table.xml" />
+
+  <!-- Cylinder objects -->
+  <include file="../realworld/obj_cylinder.xml" />
+
+  <!-- Floor and Sky -->
+  <include file="../object/floor_sky.xml" />
+
+</mujoco>
