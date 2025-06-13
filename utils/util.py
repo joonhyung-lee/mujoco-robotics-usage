@@ -1,7 +1,10 @@
 import math,time,os
 import numpy as np
+from matplotlib import animation
 import shapely as sp # handle polygon
 from shapely import Polygon,LineString,Point # handle polygons
+import matplotlib.pyplot as plt
+from IPython.display import HTML
 from scipy.spatial.distance import cdist
 
 def rot_mtx(deg):
@@ -407,4 +410,20 @@ def create_folder_if_not_exists(file_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
         print ("[%s] created."%(folder_path))
-        
+
+def render_video(frames):
+    fig, ax = plt.subplots()
+    im = ax.imshow(frames[0])
+    ax.axis('off')
+
+    def animate(i):
+        im.set_array(frames[i])
+        return [im]
+
+    ani = animation.FuncAnimation(
+        fig, animate, frames=len(frames), interval=100, blit=True
+    )
+
+    plt.close(fig)
+    return HTML(ani.to_jshtml())    
+    

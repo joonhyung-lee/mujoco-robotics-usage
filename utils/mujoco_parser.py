@@ -523,7 +523,61 @@ class MuJoCoParserClass(object):
         self.forward(q=q_backup,joint_idxs=idxs_forward)
         
         return q_ik
-    
+
+    def solve_augmented_ik(self, ik_body_names, ik_p_trgts, ik_R_trgts,
+                        IK_Ps, IK_Rs, q_init, idxs_forward, idxs_jacobian,
+                        RESET=False,DO_RENDER=False,render_every=1,th=1*np.pi/180.0,err_th=1e-6):
+        if RESET:
+            self.reset()
+        q_backup = self.get_q(joint_idxs=idxs_forward)
+        q = q_init.copy()
+        self.forward(q=q,joint_idxs=idxs_forward)
+        tick = 0
+        while True:
+            tick = tick + 1
+            # Numerical IK
+            J_aug,err_aug = [],[]
+            for ik_idx,ik_body_name in enumerate(ik_body_names):
+                p_trgt,R_trgt = ik_p_trgts[ik_idx],ik_R_trgts[ik_idx]
+                IK_P,IK_R = IK_Ps[ik_idx],IK_Rs[ik_idx]
+                J,err = self.get_ik_ingredients(
+                    body_name=ik_body_name,p_trgt=p_trgt,R_trgt=R_trgt,IK_P=IK_P,IK_R=IK_R)
+                if (J is None) and (err is None): continue
+                if len(J_aug) == 0:
+                    J_aug,err_aug = J,err
+                else:
+                    J_aug   = np.concatenate((J_aug,J),axis=0)
+                    err_aug = np.concatenate((err_aug,err),axis=0)
+            dq = self.damped_ls(J_aug,err_aug,stepsize=1,eps=1e-1,th=5*np.pi/180.0)
+            # Update q and FK
+            q = q + dq[idxs_jacobian]
+            self.forward(q=q,joint_idxs=idxs_forward)
+
+            # Terminate condition
+            err_norm = np.linalg.norm(err_aug)
+            if err_norm < err_th:
+                break
+            # Render
+            if DO_RENDER:
+                if ((tick-1)%render_every) == 0:
+                    for ik_idx,ik_body_name in enumerate(ik_body_names):
+                        p_trgt,R_trgt = ik_p_trgts[ik_idx],ik_R_trgts[ik_idx]
+                        IK_P,IK_R = IK_Ps[ik_idx],IK_Rs[ik_idx]
+                        if (IK_P is None) and (IK_R is None): continue
+                        self.plot_T(p=self.get_p_body(body_name=ik_body_name),R=self.get_R_body(body_name=ik_body_name),
+                                PLOT_AXIS=IK_R,axis_len=0.2,axis_width=0.01,
+                                PLOT_SPHERE=IK_P,sphere_r=0.05,sphere_rgba=[1,0,0,0.9],  label=f'augmented error: {np.linalg.norm(err_aug)}')
+                        self.plot_T(p=p_trgt,R=R_trgt,
+                                PLOT_AXIS=IK_R,axis_len=0.2,axis_width=0.01,
+                                PLOT_SPHERE=IK_P,sphere_r=0.05,sphere_rgba=[0,0,1,0.9])
+                    self.plot_T(p=[0,0,0],R=np.eye(3,3),PLOT_AXIS=True,axis_len=1.0)
+                    self.render()
+        # Back to back-uped position
+        q_ik = self.get_q(joint_idxs=idxs_forward)
+        self.forward(q=q_backup,joint_idxs=idxs_forward)
+
+        return q_ik
+
     def plot_sphere(self,p,r,rgba=[1,1,1,1],label=''):
         """
             Add sphere
@@ -797,6 +851,85 @@ class MuJoCoParserClass(object):
                 body1s.append(contact_body1)
                 body2s.append(contact_body2)
         return p_contacts,f_contacts,geom1s,geom2s,body1s,body2s
+
+    def solve_nullspace_projected_ik(self, ik_body_name_pri, ik_body_name_sec, p_trgt_pri, p_trgt_sec,
+                        R_trgt_pri, R_trgt_sec, IK_Ps, IK_Rs, q_init, idxs_forward, idxs_jacobian,
+                        RESET=True,DO_RENDER=True,render_every=1,th=1*np.pi/180.0,err_th_pri=1e-6, err_th_sec=1e-2):
+        if RESET:
+            self.reset()
+        q_backup = self.get_q(joint_idxs=idxs_forward)
+        q = q_init.copy()
+        tick = 0
+        while True:
+            tick = tick + 1
+            # Get IK ingredients for the primary target
+            J_pri,err_pri = self.get_ik_ingredients(
+                body_name=ik_body_name_pri,p_trgt=p_trgt_pri,R_trgt=R_trgt_pri,IK_P=IK_Ps[0],IK_R=IK_Rs[0])
+            dq_pri = self.damped_ls(J_pri,err_pri,stepsize=1,eps=1e-1,th=5*np.pi/180.0)
+            # Get IK ingredients for the nullspace
+            J_sec,err_sec = self.get_ik_ingredients(
+                body_name=ik_body_name_sec,p_trgt=p_trgt_sec,R_trgt=R_trgt_sec,IK_P=IK_Ps[1],IK_R=IK_Rs[1])
+            dq_sec = self.damped_ls(J_sec,err_sec,stepsize=1,eps=1e-1,th=5*np.pi/180.0)
+            # Combine the primary with the secondary with nullspace projection
+            dq = dq_pri + (np.eye(self.n_dof,self.n_dof)-np.linalg.pinv(J_pri)@J_pri)@dq_sec
+            # Update q and FK
+            q = q + dq[idxs_jacobian]
+            self.forward(q=q,joint_idxs=idxs_forward)
+
+            # Terminate condition
+            # err_stacked = np.concatenate((err_pri,err_sec),axis=0)
+            err_pri_norm = np.linalg.norm(err_pri)
+            err_sec_norm = np.linalg.norm(err_sec)
+            if err_pri_norm < err_th_pri and err_sec_norm < err_th_sec:
+                break
+
+            # Render
+            if DO_RENDER:
+                if ((tick-1)%render_every) == 0:
+                    # Render
+                    self.plot_T(p=self.get_p_body(body_name=ik_body_name_pri),R=None,
+                            PLOT_AXIS=False,PLOT_SPHERE=True,sphere_r=0.05,sphere_rgba=[1,0,0,0.9])
+                    self.plot_T(p=p_trgt_pri,R=None,
+                            PLOT_AXIS=False,PLOT_SPHERE=True,sphere_r=0.05,sphere_rgba=[0,0,1,0.9], label=f'primary error: {err_pri_norm}')
+                    self.plot_T(p=self.get_p_body(body_name=ik_body_name_sec),R=None,
+                            PLOT_AXIS=False,PLOT_SPHERE=True,sphere_r=0.05,sphere_rgba=[1,0,0,0.9], label=f'secondary error: {err_sec_norm}')
+                    self.plot_T(p=p_trgt_sec,R=None,
+                            PLOT_AXIS=False,PLOT_SPHERE=True,sphere_r=0.05,sphere_rgba=[0,0,1,0.9])
+                    self.plot_T(p=[0,0,0],R=np.eye(3,3),PLOT_AXIS=True,axis_len=1.0)
+                    self.render()
+
+        # Back to back-uped position
+        q_ik = self.get_q(joint_idxs=idxs_forward)
+        self.forward(q=q_backup,joint_idxs=idxs_forward)
+        
+        return q_ik
+
+
+    def plot_arrow(self,p,uv,r_stem=0.03,len_arrow=0.3,rgba=[1,0,0,1],label=''):
+        """
+            Plot arrow
+        """
+        p_a = np.copy(np.array([0,0,1]))
+        p_b = np.copy(uv)
+        p_a_norm = np.linalg.norm(p_a)
+        p_b_norm = np.linalg.norm(p_b)
+        if p_a_norm > 1e-9: p_a = p_a/p_a_norm
+        if p_b_norm > 1e-9: p_b = p_b/p_b_norm
+        v = np.cross(p_a,p_b)
+        S = np.array([[0,-v[2],v[1]],[v[2],0,-v[0]],[-v[1],v[0],0]])
+        if np.linalg.norm(v) == 0:
+            R = np.eye(3,3)
+        else:
+            R = np.eye(3,3) + S + S@S*(1-np.dot(p_a,p_b))/(np.linalg.norm(v)*np.linalg.norm(v))
+
+        self.viewer.add_marker(
+            pos   = p,
+            mat   = R,
+            type  = mujoco.mjtGeom.mjGEOM_ARROW,
+            size  = [r_stem,r_stem,len_arrow],
+            rgba  = rgba,
+            label = label
+        )
 
     def plot_contact_info(self,must_include_prefix=None,h_arrow=0.3,rgba_arrow=[1,0,0,1],
                           PRINT_CONTACT_BODY=False,PRINT_CONTACT_GEOM=False,VERBOSE=False):
