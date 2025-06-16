@@ -36,8 +36,9 @@ Below is a list of files and their descriptions:
         * [General]
             <p float="left">
             <img src="./readme/gifs/ik_general.gif" width="49%" />
-            <img src="./readme/gifs/wholebody_ik.gif" width="49%" />>
+            <img src="./readme/gifs/wholebody_ik.gif" width="49%" />
             </p>
+
         * [Augmented],
         * [Nullspace projection]
         * [Repelling]
@@ -47,10 +48,11 @@ Below is a list of files and their descriptions:
 * Trajectory Planning method
     1. [Task space planning]
         * [Quintic]
+
         <p float="left">
-        <img src="./readme/gifs/ik_traj.gif" width="49%" />
-        <img src="./readme/gifs/minimum_jerk.gif" width="49%" />
+            <img src="./readme/gifs/manipulator_quintic.gif" width="100%" alt="Project point-cloud onto table from ego-centric view.">
         </p>
+
         * [Minimum Jerk]
         * [Linear movement]
     2. [Velocity profile method]: 
@@ -60,13 +62,13 @@ Below is a list of files and their descriptions:
 * Demos
   1. [Pick-n-Place]
         <p align="center">
-            <img src="./readme/gifs/pick-n-place-multiple-objects.gif" width="100%" alt="Pick-n-place multiple objects in succession on table-top scene.">
+            <img src="./readme/gifs/manipulator_pnp.gif" width="100%" alt="Pick-n-place multiple objects in succession on table-top scene.">
         </p>
     
 * Mobile Planning method
     1. [Mobile Velocity Control]
         <p align="center">
-            <img src="./readme/gifs/husky_ur.gif" width="100%" alt="Husky with UR just moving forward.">
+            <img src="./readme/gifs/mobile_planner.gif" width="100%" alt="Husky with UR just moving forward.">
         </p>
     2. [Global planner]
         * [A*]
@@ -78,14 +80,20 @@ Below is a list of files and their descriptions:
         
 * Point-cloud
     1. [Point-cloud Projection]
-        <p align="center">
+        <p float="left">
             <img src="./readme/image/project_pcd.png" width="100%" alt="Project point-cloud onto table from ego-centric view.">
         </p>
-        <p align="center">
+        <p float="left">
             <img src="./readme/gifs/pcd_projection.gif" width="100%" alt="Project point-cloud onto table from ego-centric view.">
         </p>
 
-    2. [RANSAC]
+    2. [Colored pointcloud]
+        <p float="left">
+            <img src="./readme/image/input_rgbd.png" width="49%" alt="RGBD and colored pointcloud visualization - Two-Tiered Bookshelf"/>
+            <img src="./readme/image/colored_pcd.png" width="49%" alt="RGBD and colored pointcloud visualization - Three-Tiered Bookshelf"/>
+        </p>
+        When input RGBD has given, converts it to corresponding colored pointcloud in a row.
+
     3. [Iterative Closet Point]
     4. [Extrinsic calibration]
     
