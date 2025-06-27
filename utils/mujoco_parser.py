@@ -1032,7 +1032,9 @@ class MuJoCoParserClass(object):
         xyzone_world_transpose = T_viewer @ xyzone_transpose
         xyz_world_transpose = xyzone_world_transpose[:3,:] # [3 x N]
         xyz_world = np.transpose(xyz_world_transpose,(1,0)) # [N x 3]
-        return xyz_world,xyz_img
+        xyz_img_world = xyz_world.reshape(depth_img.shape[0],depth_img.shape[1],3)
+
+        return xyz_world,xyz_img,xyz_img_world
     
     def get_egocentric_rgb_depth_pcd(self,p_ego=None,p_trgt=None,rsz_rate=50,fovy=45,
                                      BACKUP_AND_RESTORE_VIEW=False):
@@ -1059,13 +1061,46 @@ class MuJoCoParserClass(object):
         else:
             depth_img_rsz = depth_img
         # Get PCD
-        pcd,xyz_img = self.get_pcd_from_depth_img(depth_img_rsz,fovy=fovy) # [N x 3]
+        pcd,xyz_img,xyz_img_world = self.get_pcd_from_depth_img(depth_img_rsz,fovy=fovy) # [N x 3]
 
         if BACKUP_AND_RESTORE_VIEW:
             # Restore camera information
             self.update_viewer(azimuth=viewer_azimuth,distance=viewer_distance,
                                elevation=viewer_elevation,lookat=viewer_lookat)
-        return rgb_img,depth_img,pcd,xyz_img
+        return rgb_img,depth_img,pcd,xyz_img,xyz_img_world
+
+    def get_egocentric_rgb_depth_pcd_offscreen(self,p_ego=None,p_trgt=None,rsz_rate=50,fovy=45,
+                                     BACKUP_AND_RESTORE_VIEW=False):
+        """
+            Get egocentric 1) RGB image, 2) Depth image, 3) Point Cloud Data
+        """
+        if BACKUP_AND_RESTORE_VIEW:
+            # Backup camera information
+            viewer_azimuth,viewer_distance,viewer_elevation,viewer_lookat = self.get_viewer_cam_info()
+
+        if (p_ego is not None) and (p_trgt is not None):
+            cam_azimuth,cam_distance,cam_elevation,cam_lookat = compute_view_params(
+                camera_pos=p_ego,target_pos=p_trgt,up_vector=np.array([0,0,1]))
+            self.update_viewer(azimuth=cam_azimuth,distance=cam_distance,
+                               elevation=cam_elevation,lookat=cam_lookat)
+        
+        # Grab RGB and depth image
+        rgb_img,depth_img = self.grab_rgb_depth_img_offscreen() # get rgb and depth images
+        
+        # Resize
+        if rsz_rate is not None:
+            h_rsz,w_rsz = depth_img.shape[0]//rsz_rate,depth_img.shape[1]//rsz_rate
+            depth_img_rsz = cv2.resize(depth_img,(w_rsz,h_rsz),interpolation=cv2.INTER_NEAREST)
+        else:
+            depth_img_rsz = depth_img
+        # Get PCD
+        pcd,xyz_img,xyz_img_world = self.get_pcd_from_depth_img(depth_img_rsz,fovy=fovy) # [N x 3]
+
+        if BACKUP_AND_RESTORE_VIEW:
+            # Restore camera information
+            self.update_viewer(azimuth=viewer_azimuth,distance=viewer_distance,
+                               elevation=viewer_elevation,lookat=viewer_lookat)
+        return rgb_img,depth_img,pcd,xyz_img,xyz_img_world
 
     def place_objects(self, n_obj, obj_names, x_range=[0.75, 1.35], y_range=[-0.38,0.38],z_range=[0.81,0.81], min_dist=0.1, COLORS=False, VERBOSE=False):
         xyzs = sample_xyzs(n_sample=n_obj,

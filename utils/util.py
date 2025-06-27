@@ -385,15 +385,15 @@ def compute_view_params(camera_pos,target_pos,up_vector=np.array([0,0,1])):
     # Return computed values
     return azimuth, distance, elevation, lookat
 
-def sample_xyzs(n_sample,x_range=[0,1],y_range=[0,1],z_range=[0,1],min_dist=0.1):
+def sample_xyzs(n_sample,x_range=[0,1],y_range=[0,1],z_range=[0,1],min_dist=0.1,xy_margin=0.0):
     """
         Sample a point in three dimensional space with the minimum distance between points
     """
     xyzs = np.zeros((n_sample,3))
     for p_idx in range(n_sample):
         while True:
-            x_rand = np.random.uniform(low=x_range[0],high=x_range[1])
-            y_rand = np.random.uniform(low=y_range[0],high=y_range[1])
+            x_rand = np.random.uniform(low=x_range[0]+xy_margin,high=x_range[1]-xy_margin)
+            y_rand = np.random.uniform(low=y_range[0]+xy_margin,high=y_range[1]-xy_margin)
             z_rand = np.random.uniform(low=z_range[0],high=z_range[1])
             xyz = np.array([x_rand,y_rand,z_rand])
             if p_idx == 0: break

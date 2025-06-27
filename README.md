@@ -94,6 +94,9 @@ Below is a list of files and their descriptions:
         </p>
         When input RGBD has given, converts it to corresponding colored pointcloud in a row.
 
+        Code: 
+        [demo_colored_pcd.ipynb](code/point-cloud/demo_colored_pcd.ipynb)
+
     3. [Iterative Closet Point]
     4. [Extrinsic calibration]
     
