@@ -1,0 +1,102 @@
+<mujoco model="husky maze">
+  <include file="./husky_w_lidar.xml"/>
+  <include file="../object/floor_sky.xml"/>
+  <worldbody>
+    <geom name="wall_0" type="box" pos="1.300 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_1" type="box" pos="3.900 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_2" type="box" pos="6.500 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_3" type="box" pos="9.100 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_4" type="box" pos="11.700 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_5" type="box" pos="14.300 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_6" type="box" pos="16.900 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_7" type="box" pos="19.500 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_8" type="box" pos="22.100 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_9" type="box" pos="24.700 -1.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_10" type="box" pos="1.300 -3.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_11" type="box" pos="14.300 -3.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_12" type="box" pos="24.700 -3.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_13" type="box" pos="1.300 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_14" type="box" pos="6.500 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_15" type="box" pos="9.100 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_16" type="box" pos="14.300 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_17" type="box" pos="19.500 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_18" type="box" pos="24.700 -6.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_19" type="box" pos="1.300 -9.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_20" type="box" pos="6.500 -9.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_21" type="box" pos="19.500 -9.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_22" type="box" pos="24.700 -9.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_23" type="box" pos="1.300 -11.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_24" type="box" pos="11.700 -11.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_25" type="box" pos="14.300 -11.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_26" type="box" pos="24.700 -11.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_27" type="box" pos="1.300 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_28" type="box" pos="3.900 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_29" type="box" pos="6.500 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_30" type="box" pos="19.500 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_31" type="box" pos="22.100 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_32" type="box" pos="24.700 -14.300 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_33" type="box" pos="1.300 -16.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_34" type="box" pos="11.700 -16.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_35" type="box" pos="24.700 -16.900 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_36" type="box" pos="1.300 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_37" type="box" pos="6.500 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_38" type="box" pos="11.700 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_39" type="box" pos="16.900 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_40" type="box" pos="19.500 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_41" type="box" pos="24.700 -19.500 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_42" type="box" pos="1.300 -22.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_43" type="box" pos="24.700 -22.100 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_44" type="box" pos="1.300 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_45" type="box" pos="3.900 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_46" type="box" pos="6.500 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_47" type="box" pos="9.100 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_48" type="box" pos="11.700 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_49" type="box" pos="14.300 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_50" type="box" pos="16.900 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_51" type="box" pos="19.500 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_52" type="box" pos="22.100 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="wall_53" type="box" pos="24.700 -24.700 0.500" size="1.300 1.300 0.500" rgba="0.6 0.65 0.7 1" contype="1" conaffinity="1"/>
+    <geom name="goal_marker" type="sphere" pos="22.100 -22.100 0.5" size="0.3" rgba="1 0.1 0.1 0.7" contype="0" conaffinity="0"/>
+    <geom name="wp_0" type="sphere" pos="3.900 -3.900 0.4" size="0.15" rgba="0.1 0.1 0.1 0.9" contype="0" conaffinity="0"/>
+    <geom name="wp_1" type="sphere" pos="3.854 -4.899 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_2" type="sphere" pos="3.987 -6.609 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_3" type="sphere" pos="4.287 -7.773 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_4" type="sphere" pos="4.627 -9.152 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_5" type="sphere" pos="4.624 -10.558 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_6" type="sphere" pos="5.309 -11.287 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_7" type="sphere" pos="6.918 -11.806 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_8" type="sphere" pos="8.479 -12.404 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_9" type="sphere" pos="9.948 -13.226 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_10" type="sphere" pos="11.047 -13.926 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_11" type="sphere" pos="12.239 -14.544 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_12" type="sphere" pos="12.897 -14.831 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_13" type="sphere" pos="14.631 -15.569 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_14" type="sphere" pos="15.822 -16.085 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_15" type="sphere" pos="17.492 -16.603 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_16" type="sphere" pos="19.177 -16.878 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_17" type="sphere" pos="20.970 -17.717 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_18" type="sphere" pos="21.600 -19.142 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_19" type="sphere" pos="22.368 -20.803 0.4" size="0.15" rgba="1 0 1 0.6" contype="0" conaffinity="0"/>
+    <geom name="wp_20" type="sphere" pos="22.100 -22.100 0.4" size="0.15" rgba="0.1 0.1 0.1 0.9" contype="0" conaffinity="0"/>
+    <geom name="pathseg_0" type="capsule" pos="3.877 -4.399 0.4" size="0.05 0.500" euler="0 1.5708 -1.6167" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_1" type="capsule" pos="3.920 -5.754 0.4" size="0.05 0.858" euler="0 1.5708 -1.4934" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_2" type="capsule" pos="4.137 -7.191 0.4" size="0.05 0.601" euler="0 1.5708 -1.3186" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_3" type="capsule" pos="4.457 -8.463 0.4" size="0.05 0.710" euler="0 1.5708 -1.3291" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_4" type="capsule" pos="4.625 -9.855 0.4" size="0.05 0.703" euler="0 1.5708 -1.5728" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_5" type="capsule" pos="4.966 -10.922 0.4" size="0.05 0.500" euler="0 1.5708 -0.8160" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_6" type="capsule" pos="6.114 -11.546 0.4" size="0.05 0.845" euler="0 1.5708 -0.3119" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_7" type="capsule" pos="7.698 -12.105 0.4" size="0.05 0.836" euler="0 1.5708 -0.3663" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_8" type="capsule" pos="9.214 -12.815 0.4" size="0.05 0.842" euler="0 1.5708 -0.5097" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_9" type="capsule" pos="10.498 -13.576 0.4" size="0.05 0.651" euler="0 1.5708 -0.5674" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_10" type="capsule" pos="11.643 -14.235 0.4" size="0.05 0.672" euler="0 1.5708 -0.4781" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_11" type="capsule" pos="12.568 -14.687 0.4" size="0.05 0.359" euler="0 1.5708 -0.4122" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_12" type="capsule" pos="13.764 -15.200 0.4" size="0.05 0.942" euler="0 1.5708 -0.4024" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_13" type="capsule" pos="15.226 -15.827 0.4" size="0.05 0.649" euler="0 1.5708 -0.4084" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_14" type="capsule" pos="16.657 -16.344 0.4" size="0.05 0.874" euler="0 1.5708 -0.3010" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_15" type="capsule" pos="18.335 -16.740 0.4" size="0.05 0.854" euler="0 1.5708 -0.1616" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_16" type="capsule" pos="20.074 -17.298 0.4" size="0.05 0.990" euler="0 1.5708 -0.4381" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_17" type="capsule" pos="21.285 -18.430 0.4" size="0.05 0.779" euler="0 1.5708 -1.1544" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_18" type="capsule" pos="21.984 -19.972 0.4" size="0.05 0.915" euler="0 1.5708 -1.1378" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+    <geom name="pathseg_19" type="capsule" pos="22.234 -21.451 0.4" size="0.05 0.662" euler="0 1.5708 -1.7744" rgba="1 0 1 0.4" contype="0" conaffinity="0"/>
+  </worldbody>
+</mujoco>

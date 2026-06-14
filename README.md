@@ -70,12 +70,23 @@ Below is a list of files and their descriptions:
         <p align="center">
             <img src="./readme/gifs/mobile_planner.gif" width="100%" alt="Husky with UR just moving forward.">
         </p>
-    2. [Global planner]
-        * [A*]
-        * [RRT]
-        * [RRT*]
-    3. [Local planner]
-        * [Pure-pursuit]
+    2. [SLAM + RRT* + Navigation]
+        * 2D LiDAR SLAM (occupancy grid mapping with 72 rangefinder sensors)
+        * RRT* global path planning on SLAM map
+        * Local planners: Pure Pursuit, Stanley Controller, MPPI
+        * Dynamic obstacle avoidance with local path deformation
+
+        <p align="center">
+            <img src="./asset/husky_3d_rrt_navigation.gif" width="100%" alt="Husky navigating a maze with RRT* path (3D view).">
+        </p>
+        <p align="center">
+            <img src="./asset/husky_slam_rrt_navigation.gif" width="100%" alt="SLAM exploration, RRT* planning, and navigation (top-down view).">
+        </p>
+        <p align="center">
+            <img src="./asset/output_rrt.png" width="100%" alt="Known map + RRT* path / SLAM map / Ground truth vs SLAM comparison.">
+        </p>
+
+        Code: `code/mobile/demo_husky_06_slam.ipynb` ~ `demo_husky_10_rrt_w_avoidance.ipynb`
         
         
 * Point-cloud
