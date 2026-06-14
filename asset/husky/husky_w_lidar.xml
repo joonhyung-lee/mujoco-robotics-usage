@@ -1,0 +1,206 @@
+<mujoco model="husky_robot_lidar">
+  <compiler angle="radian" meshdir="./meshes/" autolimits="true"/>
+  <default>
+    <joint limited="false" armature="0.01" />
+    <equality solref="0.0002 1" solimp="0.99 0.99 0.0001" />
+  </default>
+  <asset>
+    <mesh name="base_link" file="base_link.stl"/>
+    <mesh name="wheel" file="wheel.stl"/>
+    <mesh name="top_plate" file="top_plate.stl"/>
+    <mesh name="user_rail" file="user_rail.stl"/>
+    <mesh name="bumper" file="bumper.stl"/>
+    <mesh name="large_top_plate" file="large_top_plate.obj"/>
+  </asset>
+  <worldbody>
+    <body name="base_husky" pos="0 0 0.1" euler="0 0 0">
+      <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="100" diaginertia="0.04411 0.02467 0.02467"/>
+      <joint type="free" name="base_husky_joint" />
+      <geom pos="0 0 0.14493" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.1 0.1 0.1 1" mesh="base_link"/>
+      <geom pos="0 0 0.14493" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.8 0.8 0 1" mesh="top_plate"/>
+      <geom pos="0.272 0 0.38993" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="user_rail"/>
+      <geom pos="0.48 0 0.23593" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper"/>
+      <geom pos="-0.48 0 0.23593" quat="1.32679e-06 0 0 1" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper"/>
+      <geom pos="0.08 0 0.38993" type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.1 0.1 0.1 1" mesh="large_top_plate"/>
+      <!-- 2D LiDAR: 72 rangefinder rays at 5-degree intervals -->
+      <site name="lidar_000" pos="0 0 0.55" zaxis="1.000000 0.000000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_001" pos="0 0 0.55" zaxis="0.996195 0.087156 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_002" pos="0 0 0.55" zaxis="0.984808 0.173648 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_003" pos="0 0 0.55" zaxis="0.965926 0.258819 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_004" pos="0 0 0.55" zaxis="0.939693 0.342020 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_005" pos="0 0 0.55" zaxis="0.906308 0.422618 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_006" pos="0 0 0.55" zaxis="0.866025 0.500000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_007" pos="0 0 0.55" zaxis="0.819152 0.573576 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_008" pos="0 0 0.55" zaxis="0.766044 0.642788 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_009" pos="0 0 0.55" zaxis="0.707107 0.707107 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_010" pos="0 0 0.55" zaxis="0.642788 0.766044 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_011" pos="0 0 0.55" zaxis="0.573576 0.819152 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_012" pos="0 0 0.55" zaxis="0.500000 0.866025 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_013" pos="0 0 0.55" zaxis="0.422618 0.906308 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_014" pos="0 0 0.55" zaxis="0.342020 0.939693 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_015" pos="0 0 0.55" zaxis="0.258819 0.965926 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_016" pos="0 0 0.55" zaxis="0.173648 0.984808 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_017" pos="0 0 0.55" zaxis="0.087156 0.996195 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_018" pos="0 0 0.55" zaxis="0.000000 1.000000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_019" pos="0 0 0.55" zaxis="-0.087156 0.996195 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_020" pos="0 0 0.55" zaxis="-0.173648 0.984808 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_021" pos="0 0 0.55" zaxis="-0.258819 0.965926 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_022" pos="0 0 0.55" zaxis="-0.342020 0.939693 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_023" pos="0 0 0.55" zaxis="-0.422618 0.906308 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_024" pos="0 0 0.55" zaxis="-0.500000 0.866025 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_025" pos="0 0 0.55" zaxis="-0.573576 0.819152 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_026" pos="0 0 0.55" zaxis="-0.642788 0.766044 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_027" pos="0 0 0.55" zaxis="-0.707107 0.707107 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_028" pos="0 0 0.55" zaxis="-0.766044 0.642788 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_029" pos="0 0 0.55" zaxis="-0.819152 0.573576 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_030" pos="0 0 0.55" zaxis="-0.866025 0.500000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_031" pos="0 0 0.55" zaxis="-0.906308 0.422618 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_032" pos="0 0 0.55" zaxis="-0.939693 0.342020 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_033" pos="0 0 0.55" zaxis="-0.965926 0.258819 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_034" pos="0 0 0.55" zaxis="-0.984808 0.173648 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_035" pos="0 0 0.55" zaxis="-0.996195 0.087156 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_036" pos="0 0 0.55" zaxis="-1.000000 0.000000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_037" pos="0 0 0.55" zaxis="-0.996195 -0.087156 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_038" pos="0 0 0.55" zaxis="-0.984808 -0.173648 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_039" pos="0 0 0.55" zaxis="-0.965926 -0.258819 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_040" pos="0 0 0.55" zaxis="-0.939693 -0.342020 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_041" pos="0 0 0.55" zaxis="-0.906308 -0.422618 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_042" pos="0 0 0.55" zaxis="-0.866025 -0.500000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_043" pos="0 0 0.55" zaxis="-0.819152 -0.573576 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_044" pos="0 0 0.55" zaxis="-0.766044 -0.642788 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_045" pos="0 0 0.55" zaxis="-0.707107 -0.707107 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_046" pos="0 0 0.55" zaxis="-0.642788 -0.766044 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_047" pos="0 0 0.55" zaxis="-0.573576 -0.819152 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_048" pos="0 0 0.55" zaxis="-0.500000 -0.866025 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_049" pos="0 0 0.55" zaxis="-0.422618 -0.906308 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_050" pos="0 0 0.55" zaxis="-0.342020 -0.939693 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_051" pos="0 0 0.55" zaxis="-0.258819 -0.965926 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_052" pos="0 0 0.55" zaxis="-0.173648 -0.984808 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_053" pos="0 0 0.55" zaxis="-0.087156 -0.996195 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_054" pos="0 0 0.55" zaxis="-0.000000 -1.000000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_055" pos="0 0 0.55" zaxis="0.087156 -0.996195 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_056" pos="0 0 0.55" zaxis="0.173648 -0.984808 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_057" pos="0 0 0.55" zaxis="0.258819 -0.965926 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_058" pos="0 0 0.55" zaxis="0.342020 -0.939693 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_059" pos="0 0 0.55" zaxis="0.422618 -0.906308 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_060" pos="0 0 0.55" zaxis="0.500000 -0.866025 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_061" pos="0 0 0.55" zaxis="0.573576 -0.819152 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_062" pos="0 0 0.55" zaxis="0.642788 -0.766044 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_063" pos="0 0 0.55" zaxis="0.707107 -0.707107 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_064" pos="0 0 0.55" zaxis="0.766044 -0.642788 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_065" pos="0 0 0.55" zaxis="0.819152 -0.573576 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_066" pos="0 0 0.55" zaxis="0.866025 -0.500000 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_067" pos="0 0 0.55" zaxis="0.906308 -0.422618 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_068" pos="0 0 0.55" zaxis="0.939693 -0.342020 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_069" pos="0 0 0.55" zaxis="0.965926 -0.258819 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_070" pos="0 0 0.55" zaxis="0.984808 -0.173648 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+      <site name="lidar_071" pos="0 0 0.55" zaxis="0.996195 -0.087156 0" size="0.005" rgba="1 0 0 0.3" group="4"/>
+
+      <!-- Wheels -->
+      <body name="front_left_wheel_link" pos="0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
+        <joint name="front_left_wheel" pos="0 0 0" axis="0 1 0"/>
+        <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
+      </body>
+      <body name="front_right_wheel_link" pos="0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
+        <joint name="front_right_wheel" pos="0 0 0" axis="0 1 0"/>
+        <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
+      </body>
+      <body name="rear_left_wheel_link" pos="-0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
+        <joint name="rear_left_wheel" pos="0 0 0" axis="0 1 0"/>
+        <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
+      </body>
+      <body name="rear_right_wheel_link" pos="-0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.14">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467"/>
+        <joint name="rear_right_wheel" pos="0 0 0" axis="0 1 0"/>
+        <geom type="mesh" contype="0" conaffinity="1" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel"/>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <velocity name="front_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
+      kv="10" joint="front_left_wheel" />
+    <velocity name="front_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
+      kv="10" joint="front_right_wheel" />
+    <velocity name="rear_left_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
+      kv="10" joint="rear_left_wheel" />
+    <velocity name="rear_right_actuator" ctrllimited="true" ctrlrange="-100.0 100.0" gear="-1"
+      kv="10" joint="rear_right_wheel" />
+  </actuator>
+  <sensor>
+    <rangefinder name="lidar_000" site="lidar_000" cutoff="10"/>
+    <rangefinder name="lidar_001" site="lidar_001" cutoff="10"/>
+    <rangefinder name="lidar_002" site="lidar_002" cutoff="10"/>
+    <rangefinder name="lidar_003" site="lidar_003" cutoff="10"/>
+    <rangefinder name="lidar_004" site="lidar_004" cutoff="10"/>
+    <rangefinder name="lidar_005" site="lidar_005" cutoff="10"/>
+    <rangefinder name="lidar_006" site="lidar_006" cutoff="10"/>
+    <rangefinder name="lidar_007" site="lidar_007" cutoff="10"/>
+    <rangefinder name="lidar_008" site="lidar_008" cutoff="10"/>
+    <rangefinder name="lidar_009" site="lidar_009" cutoff="10"/>
+    <rangefinder name="lidar_010" site="lidar_010" cutoff="10"/>
+    <rangefinder name="lidar_011" site="lidar_011" cutoff="10"/>
+    <rangefinder name="lidar_012" site="lidar_012" cutoff="10"/>
+    <rangefinder name="lidar_013" site="lidar_013" cutoff="10"/>
+    <rangefinder name="lidar_014" site="lidar_014" cutoff="10"/>
+    <rangefinder name="lidar_015" site="lidar_015" cutoff="10"/>
+    <rangefinder name="lidar_016" site="lidar_016" cutoff="10"/>
+    <rangefinder name="lidar_017" site="lidar_017" cutoff="10"/>
+    <rangefinder name="lidar_018" site="lidar_018" cutoff="10"/>
+    <rangefinder name="lidar_019" site="lidar_019" cutoff="10"/>
+    <rangefinder name="lidar_020" site="lidar_020" cutoff="10"/>
+    <rangefinder name="lidar_021" site="lidar_021" cutoff="10"/>
+    <rangefinder name="lidar_022" site="lidar_022" cutoff="10"/>
+    <rangefinder name="lidar_023" site="lidar_023" cutoff="10"/>
+    <rangefinder name="lidar_024" site="lidar_024" cutoff="10"/>
+    <rangefinder name="lidar_025" site="lidar_025" cutoff="10"/>
+    <rangefinder name="lidar_026" site="lidar_026" cutoff="10"/>
+    <rangefinder name="lidar_027" site="lidar_027" cutoff="10"/>
+    <rangefinder name="lidar_028" site="lidar_028" cutoff="10"/>
+    <rangefinder name="lidar_029" site="lidar_029" cutoff="10"/>
+    <rangefinder name="lidar_030" site="lidar_030" cutoff="10"/>
+    <rangefinder name="lidar_031" site="lidar_031" cutoff="10"/>
+    <rangefinder name="lidar_032" site="lidar_032" cutoff="10"/>
+    <rangefinder name="lidar_033" site="lidar_033" cutoff="10"/>
+    <rangefinder name="lidar_034" site="lidar_034" cutoff="10"/>
+    <rangefinder name="lidar_035" site="lidar_035" cutoff="10"/>
+    <rangefinder name="lidar_036" site="lidar_036" cutoff="10"/>
+    <rangefinder name="lidar_037" site="lidar_037" cutoff="10"/>
+    <rangefinder name="lidar_038" site="lidar_038" cutoff="10"/>
+    <rangefinder name="lidar_039" site="lidar_039" cutoff="10"/>
+    <rangefinder name="lidar_040" site="lidar_040" cutoff="10"/>
+    <rangefinder name="lidar_041" site="lidar_041" cutoff="10"/>
+    <rangefinder name="lidar_042" site="lidar_042" cutoff="10"/>
+    <rangefinder name="lidar_043" site="lidar_043" cutoff="10"/>
+    <rangefinder name="lidar_044" site="lidar_044" cutoff="10"/>
+    <rangefinder name="lidar_045" site="lidar_045" cutoff="10"/>
+    <rangefinder name="lidar_046" site="lidar_046" cutoff="10"/>
+    <rangefinder name="lidar_047" site="lidar_047" cutoff="10"/>
+    <rangefinder name="lidar_048" site="lidar_048" cutoff="10"/>
+    <rangefinder name="lidar_049" site="lidar_049" cutoff="10"/>
+    <rangefinder name="lidar_050" site="lidar_050" cutoff="10"/>
+    <rangefinder name="lidar_051" site="lidar_051" cutoff="10"/>
+    <rangefinder name="lidar_052" site="lidar_052" cutoff="10"/>
+    <rangefinder name="lidar_053" site="lidar_053" cutoff="10"/>
+    <rangefinder name="lidar_054" site="lidar_054" cutoff="10"/>
+    <rangefinder name="lidar_055" site="lidar_055" cutoff="10"/>
+    <rangefinder name="lidar_056" site="lidar_056" cutoff="10"/>
+    <rangefinder name="lidar_057" site="lidar_057" cutoff="10"/>
+    <rangefinder name="lidar_058" site="lidar_058" cutoff="10"/>
+    <rangefinder name="lidar_059" site="lidar_059" cutoff="10"/>
+    <rangefinder name="lidar_060" site="lidar_060" cutoff="10"/>
+    <rangefinder name="lidar_061" site="lidar_061" cutoff="10"/>
+    <rangefinder name="lidar_062" site="lidar_062" cutoff="10"/>
+    <rangefinder name="lidar_063" site="lidar_063" cutoff="10"/>
+    <rangefinder name="lidar_064" site="lidar_064" cutoff="10"/>
+    <rangefinder name="lidar_065" site="lidar_065" cutoff="10"/>
+    <rangefinder name="lidar_066" site="lidar_066" cutoff="10"/>
+    <rangefinder name="lidar_067" site="lidar_067" cutoff="10"/>
+    <rangefinder name="lidar_068" site="lidar_068" cutoff="10"/>
+    <rangefinder name="lidar_069" site="lidar_069" cutoff="10"/>
+    <rangefinder name="lidar_070" site="lidar_070" cutoff="10"/>
+    <rangefinder name="lidar_071" site="lidar_071" cutoff="10"/>
+  </sensor>
+</mujoco>
