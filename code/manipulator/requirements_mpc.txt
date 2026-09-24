@@ -1,0 +1,6 @@
+mujoco==3.3.7
+numpy>=1.24,<3
+scipy>=1.10,<2
+osqp>=1.0,<2
+matplotlib>=3.7,<4
+imageio[ffmpeg]>=2.31,<3
